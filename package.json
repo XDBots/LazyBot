@@ -1,0 +1,34 @@
+{
+  "name": "lazygram",
+  "version": "0.0.1",
+  "description": "Telegram Userbot",
+  "main": "src/app",
+  "scripts": {
+    "build": "tsc",
+    "build:test": "tsc --noEmit",
+    "start": "node build/app.js",
+    "postinstall": "prisma db push --accept-data-loss"
+  },
+  "keywords": [
+    "Telegram",
+    "Userbot",
+    "GramJS"
+  ],
+  "author": "@ArnabXD",
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "@types/node": "^16.11.9",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.4.1",
+    "prisma": "^3.5.0",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.5.0",
+    "big-integer": "^1.6.51",
+    "dotenv": "^10.0.0",
+    "envalid": "^7.2.2",
+    "telegram": "^1.10.8"
+  }
+}
