@@ -28,5 +28,6 @@ const HELP: LGPlugin = {
   commands: 'help'
 };
 
-export const help = `<code>Shows this help menu</code>`;
 export default [HELP];
+export const help: LGHelp = (pre) =>
+  `<code>${pre}help</code> : Shows this help menu`;

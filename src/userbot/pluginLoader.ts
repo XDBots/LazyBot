@@ -4,6 +4,7 @@ import { validate, getPatternFromCmd, extract } from '../utils';
 import { TelegramClient } from 'telegram';
 import { NewMessage, NewMessageEvent } from 'telegram/events';
 import { LazyHelp } from './helpLoader';
+import env from '../env';
 
 class PluginLoader {
   private commands: Map<string, LGPlugin['handler']>;
@@ -15,8 +16,12 @@ class PluginLoader {
   addPlugin(plugin: LGPlugin, client: TelegramClient) {
     const handler = async (event: NewMessageEvent) => {
       try {
+        if (event.message.fwdFrom) return;
         await plugin.handler(event, client);
       } catch (error) {
+        event.message.edit({
+          text: '<b>Error :</b>\n<code>' + String(error) + '</code>'
+        });
         console.log('[LazyGram][Error] => ' + error);
       }
     };
@@ -60,8 +65,14 @@ class PluginLoader {
       );
 
       let plugin = xdplug.default as LGPlugin | LGPlugin[];
-      let help =
-        xdplug.help || '<code>No Docs Provided by Plugin Developer</code>';
+      if (!plugin) {
+        return console.log('[LazyGram] => Failed to Load Plugin - ' + filename);
+      }
+
+      let help = xdplug.help as LGHelp;
+      if (!help) {
+        help = () => '<code>No Docs Provided by Plugin Developer</code>';
+      }
 
       if (!Array.isArray(plugin)) {
         plugin = [plugin];
@@ -72,7 +83,7 @@ class PluginLoader {
         this.addPlugin(pl, client);
       }
 
-      LazyHelp.addHelp(filename, help);
+      LazyHelp.addHelp(filename, help(env.CMD_PREFIX));
       console.info('[LazyGram] => Loaded Plugin File - ' + filename);
     }
   }

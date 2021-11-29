@@ -10,4 +10,6 @@ declare global {
     commands?: string | string[];
     allowArgs?: boolean;
   }
+
+  type LGHelp = (prefix: string) => string;
 }
