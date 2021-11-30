@@ -1,18 +1,32 @@
 import { Api } from 'telegram';
-import { afk, sleep, extract } from '../helpers';
+import { afk, sleep, extract, LazyLogger } from '../helpers';
 
 const AFK_HANDLE: LGPlugin = {
   handler: async (event, client) => {
     if (!afk.isAfk) return;
+    const user = (await event.message.getSender()) as Api.User;
 
     if (event.isPrivate && event.message.sender) {
-      const user = event.message.sender as Api.User;
-      if (user.bot || user.verified || user.self) return;
+      if (user.bot || user.verified) return;
+      afk.addWatch({ name: user.firstName ?? '', userid: user.id });
     }
 
     if (event.isGroup) {
       if (!event.message.mentioned && !event.message.replyTo) return;
       const group = (await client.getEntity(event.chatId!)) as Api.Channel;
+      if (group.username) {
+        afk.addWatch({
+          title: group.title,
+          link: `https://t.me/${group.username}/${event._messageId}`,
+          by: { name: user.firstName ?? '', id: user.id }
+        });
+      } else {
+        afk.addWatch({
+          title: group.title,
+          link: `https://t.me/c/${group.id}/${event._messageId}`,
+          by: { name: user.firstName ?? '', id: user.id }
+        });
+      }
     }
 
     const afkInfo = afk.getAfk();
@@ -28,19 +42,15 @@ const AFK_HANDLE: LGPlugin = {
 };
 
 const AFK_CMD: LGPlugin = {
-  handler: async (event, client) => {
+  handler: async (event) => {
     const { args } = extract(event.message.message);
     const reason = args ?? 'Not Mentioned';
 
-    if (event.isGroup) {
-      const group = (await client.getEntity(event.chatId!)) as Api.Channel;
-      console.log(group);
-    }
-
-    afk.setAfk(reason);
     await event.message.edit({
       text: `AFK Mode on\n\n&#9055; <b>Reason :</b> <code>${reason}</code>`
     });
+
+    afk.setAfk(reason);
     await sleep(2500);
     await event.message.delete({ revoke: true });
   },
@@ -48,4 +58,17 @@ const AFK_CMD: LGPlugin = {
   allowArgs: true
 };
 
-export default [AFK_HANDLE, AFK_CMD];
+const AFK_STOP: LGPlugin = {
+  handler: async (e, client) => {
+    // Don't run on afk command itself as pattern is wild card
+    if (e.message.message.match(/afk/)) return;
+    if (!afk.isAfk) return;
+    await LazyLogger.log(client, afk.WatchList);
+    afk.stopAfk();
+  },
+  pattern: /.*/,
+  outgoing: true,
+  incoming: false
+};
+
+export default [AFK_HANDLE, AFK_CMD, AFK_STOP];
