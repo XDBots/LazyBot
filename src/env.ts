@@ -23,6 +23,7 @@ export default cleanEnv(process.env, {
   }),
   CMD_PREFIX: str({ default: '.', desc: 'Userbot Command Prefix' }),
   DATABASE_URL: str({ desc: 'Postgres database connection string' }),
+  LOG_CHAT_ID: num(),
 
   PM_PERMIT_MODE: str({ choices: ['text', 'media'], default: 'text' }),
   PM_PERMIT_MEDIA: str({
