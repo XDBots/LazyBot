@@ -10,7 +10,7 @@ class FileHelper {
       { recursive: true },
       (error) => {
         error &&
-          console.error('[LazyGram]' + `[${error.name}] => ` + error.message);
+          console.error('[LazyBot]' + `[${error.name}] => ` + error.message);
       }
     );
   }
@@ -21,7 +21,7 @@ class FileHelper {
       data,
       (error) => {
         error &&
-          console.error('[LazyGram]' + `[${error.name}] => ` + error.message);
+          console.error('[LazyBot]' + `[${error.name}] => ` + error.message);
       }
     );
   }
@@ -29,7 +29,7 @@ class FileHelper {
   deleteDownloaded(filename: string) {
     fs.rm(path.join(process.cwd(), 'downloads', filename), (error) => {
       error &&
-        console.error('[LazyGram]' + `[${error.name}] => ` + error.message);
+        console.error('[LazyBot]' + `[${error.name}] => ` + error.message);
     });
   }
 }

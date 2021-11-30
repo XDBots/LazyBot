@@ -5,7 +5,7 @@ import {
 import { TelegramClient } from 'telegram';
 
 declare global {
-  interface LGPlugin extends NewMessageInterface {
+  interface LBPlugin extends NewMessageInterface {
     handler: (event: NewMessageEvent, client: TelegramClient) => Promise<void>;
     commands?: string | string[];
     allowArgs?: boolean;

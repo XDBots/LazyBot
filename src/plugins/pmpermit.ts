@@ -12,7 +12,7 @@ const warnuser = (warns: number): string => {
   );
 };
 
-const PMPERMIT: LGPlugin = {
+const PMPERMIT: LBPlugin = {
   handler: async (event, client) => {
     if (!event.isPrivate || !event.message.senderId) return;
 
@@ -69,7 +69,7 @@ const PMPERMIT: LGPlugin = {
   outgoing: false
 };
 
-const PMPERMIT_APPROVE: LGPlugin = {
+const PMPERMIT_APPROVE: LBPlugin = {
   handler: async (event) => {
     if (event.isGroup || !event.chatId) {
       await event.message.edit({
@@ -107,7 +107,7 @@ const PMPERMIT_APPROVE: LGPlugin = {
   commands: ['a', 'approve']
 };
 
-const PMPERMIT_BLOCK: LGPlugin = {
+const PMPERMIT_BLOCK: LBPlugin = {
   handler: async (event, client) => {
     if (event.isGroup || !event.chatId) {
       await event.message.edit({

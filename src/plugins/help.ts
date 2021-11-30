@@ -1,6 +1,6 @@
 import { extract, LazyInfoHelper, LazyHelp } from '../helpers';
 
-const HELP: LGPlugin = {
+const HELP: LBPlugin = {
   handler: async (event) => {
     const { args } = extract(event.message.message);
     if (!args) {

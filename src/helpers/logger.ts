@@ -9,7 +9,7 @@ class Logger {
     try {
       await client.sendMessage(env.LOG_CHAT_ID, { message });
     } catch (e) {
-      console.log('[LazyGram][Error] => ' + e);
+      console.log('[LazyBot][Error] => ' + e);
     }
   }
 }

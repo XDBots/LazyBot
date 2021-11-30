@@ -1,4 +1,4 @@
-const Ping: LGPlugin = {
+const Ping: LBPlugin = {
   handler: async (event) => {
     const toSubtract = new Date().getTime();
     await event.message.edit({

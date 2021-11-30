@@ -1,7 +1,7 @@
 import { Api } from 'telegram';
 import { afk, sleep, extract, LazyLogger } from '../helpers';
 
-const AFK_HANDLE: LGPlugin = {
+const AFK_HANDLE: LBPlugin = {
   handler: async (event, client) => {
     if (!afk.isAfk) return;
     const user = (await event.message.getSender()) as Api.User;
@@ -41,7 +41,7 @@ const AFK_HANDLE: LGPlugin = {
   incoming: true
 };
 
-const AFK_CMD: LGPlugin = {
+const AFK_CMD: LBPlugin = {
   handler: async (event) => {
     const { args } = extract(event.message.message);
     const reason = args ?? 'Not Mentioned';
@@ -58,7 +58,7 @@ const AFK_CMD: LGPlugin = {
   allowArgs: true
 };
 
-const AFK_STOP: LGPlugin = {
+const AFK_STOP: LBPlugin = {
   handler: async (e, client) => {
     // Don't run on afk command itself as pattern is wild card
     if (e.message.message.match(/afk/)) return;

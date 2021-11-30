@@ -15,7 +15,7 @@ class InfoHelper {
     const ramUsage = ((usedRam / totalRam) * 100).toFixed(2);
 
     return (
-      `<b>LazyGram</b> (<code>${version}</code>)\n\n` +
+      `<b>LazyBot</b> (<code>${version}</code>)\n\n` +
       `&#9055; Uptime : <code>${uptime}</code>\n` +
       `&#9055; System : <code>${os.version()}-${process.arch}</code>\n` +
       `&#9055; CPU Usage : <code>${cpuUsage}%</code>\n` +

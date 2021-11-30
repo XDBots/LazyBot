@@ -6,26 +6,26 @@ import { NewMessage, NewMessageEvent } from 'telegram/events';
 import env from '../env';
 
 class PluginLoader {
-  private commands: Map<string, LGPlugin['handler']>;
+  private commands: Map<string, LBPlugin['handler']>;
 
   constructor() {
-    this.commands = new Map<string, LGPlugin['handler']>();
+    this.commands = new Map<string, LBPlugin['handler']>();
   }
 
-  private validate(plugin: LGPlugin, filename: string) {
+  private validate(plugin: LBPlugin, filename: string) {
     if (!('handler' in plugin)) {
-      console.warn(`[LazyGram] => Invalid Plugin - No Handler Found`);
+      console.warn(`[LazyBot] => Invalid Plugin - No Handler Found`);
       return false;
     }
 
     if (typeof plugin.handler !== 'function') {
-      console.warn(`[LazyGram] => Invalid Plugin - Invalid Handler`);
+      console.warn(`[LazyBot] => Invalid Plugin - Invalid Handler`);
       return false;
     }
 
     if (plugin.outgoing && !(plugin.commands || plugin.pattern)) {
       console.warn(
-        `[LazyGram] => Invalid Plugin - Commands/Pattern required for this Plugin`
+        `[LazyBot] => Invalid Plugin - Commands/Pattern required for this Plugin`
       );
       return false;
     }
@@ -33,7 +33,7 @@ class PluginLoader {
     return true;
   }
 
-  addPlugin(plugin: LGPlugin, client: TelegramClient) {
+  addPlugin(plugin: LBPlugin, client: TelegramClient) {
     const handler = async (event: NewMessageEvent) => {
       try {
         if (event.message.fwdFrom) return;
@@ -49,7 +49,7 @@ class PluginLoader {
           });
           client.sendMessage(env.LOG_CHAT_ID, { message: error });
         } catch (e) {
-          console.log('[LazyGram][Error] => ' + String(e));
+          console.log('[LazyBot][Error] => ' + String(e));
         }
       }
     };
@@ -67,7 +67,7 @@ class PluginLoader {
   }
 
   async load(client: TelegramClient) {
-    console.info('[LazyGram] => Looking For Plugins...');
+    console.info('[LazyBot] => Looking For Plugins...');
     const pluginFiles = fs
       .readdirSync(__dirname)
       .filter(
@@ -75,16 +75,16 @@ class PluginLoader {
           file.slice(0, -3) !== 'index' && ['ts', 'js'].includes(file.slice(-2))
       );
 
-    console.info(`[LazyGram] => Found ${pluginFiles.length} Plugin Files...\n`);
+    console.info(`[LazyBot] => Found ${pluginFiles.length} Plugin Files...\n`);
 
-    console.info('[LazyGram] => Loading Plugins...');
+    console.info('[LazyBot] => Loading Plugins...');
     for (const file of pluginFiles) {
       const filename = file.slice(0, -3);
       let xdplug = await import(path.join(__dirname, filename));
 
-      let plugin = xdplug.default as LGPlugin | LGPlugin[];
+      let plugin = xdplug.default as LBPlugin | LBPlugin[];
       if (!plugin) {
-        return console.log('[LazyGram] => Failed to Load Plugin - ' + filename);
+        return console.log('[LazyBot] => Failed to Load Plugin - ' + filename);
       }
 
       let help = xdplug.help as string;
@@ -102,7 +102,7 @@ class PluginLoader {
       }
 
       LazyHelp.addHelp(filename, help.replace(/{}/g, env.CMD_PREFIX));
-      console.info('[LazyGram] => Loaded Plugin File - ' + filename);
+      console.info('[LazyBot] => Loaded Plugin File - ' + filename);
     }
   }
 }

@@ -24,7 +24,7 @@ const getUserInfoText = (fulluser: Api.UserFull) => {
   );
 };
 
-const WHOIS: LGPlugin = {
+const WHOIS: LBPlugin = {
   handler: async (event, client) => {
     const args = event.message.patternMatch![2];
 
