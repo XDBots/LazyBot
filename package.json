@@ -5,9 +5,9 @@
   "main": "src/app",
   "scripts": {
     "build": "tsc",
-    "build:test": "tsc --noEmit",
+    "test": "tsc --noEmit",
     "start": "node build/app.js",
-    "postinstall": "prisma db push --accept-data-loss"
+    "prestart": "prisma db push --accept-data-loss"
   },
   "keywords": [
     "Telegram",
