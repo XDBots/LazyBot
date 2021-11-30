@@ -17,7 +17,7 @@ class InfoHelper {
     return (
       `<b>LazyBot</b> (<code>${version}</code>)\n\n` +
       `&#9055; Uptime : <code>${uptime}</code>\n` +
-      `&#9055; System : <code>${os.version()}-${process.arch}</code>\n` +
+      `&#9055; System : <code>${os.version()}-${os.arch}</code>\n` +
       `&#9055; CPU Usage : <code>${cpuUsage}%</code>\n` +
       `&#9055; RAM Usage : <code>${ramUsage}%</code>\n\n`
     );

@@ -1,7 +1,7 @@
 {
-  "name": "lazygram",
+  "name": "lazybot",
   "version": "0.0.1",
-  "description": "Telegram Userbot",
+  "description": "Telegram Userbot based on GramJS",
   "main": "src/app",
   "scripts": {
     "build": "tsc",
