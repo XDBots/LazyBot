@@ -30,5 +30,7 @@ const HELP: LGPlugin = {
 };
 
 export default [HELP];
-export const help: LGHelp = (pre) =>
-  `<code>${pre}help</code> : Shows this help menu`;
+export const help =
+  '<b>Examples</b>\n\n' +
+  '• <code>{}help</code> : <i>Shows this help menu</i>\n' +
+  '• <code>{}help plugin name</code> : <i>Shows help for that plugin</i>';

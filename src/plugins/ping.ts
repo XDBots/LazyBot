@@ -16,3 +16,7 @@ const Ping: LGPlugin = {
 };
 
 export default [Ping];
+export const help =
+  '<i>Checks ping time with Telgram server</i>\n\n' +
+  '<b>Available Commands : </b>\n\n' +
+  '• <code>{}ping</code>';

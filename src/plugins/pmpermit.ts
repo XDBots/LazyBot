@@ -128,3 +128,8 @@ const PMPERMIT_BLOCK: LGPlugin = {
 };
 
 export default [PMPERMIT, PMPERMIT_APPROVE, PMPERMIT_BLOCK];
+export const help =
+  '<i>PM Permit is a feature to prevent Inbox spamming and unwanted PMs</i>\\n' +
+  '<b>Available Commands : </b>\n\n' +
+  "• <code>{}a</code> | <code>{}approve</code> : <i>Approves the user. Now Lazygram won't disturb the conversation</i>\n" +
+  "• <code>{}unapprove</code> | <code>{}block</code> : <i>Doesn't accept the PM and blocks the user</i>";

@@ -76,8 +76,9 @@ const WHOIS: LGPlugin = {
 };
 
 export default [WHOIS];
-export const help: LGHelp = (prefix) =>
-  `<i>Examples :</i>\n` +
-  `<code>${prefix}whois</code>\n` +
-  `<code>${prefix}whois 777000</code>\n` +
-  `or reply <code>${prefix}whois</code> to someone's messages`;
+export const help =
+  '<i>Provides user information of username/user id/replied user</i>\n\n' +
+  `<b>Examples :</b>\n\n` +
+  `• <code>{}whois</code>\n` +
+  `• <code>{}whois 777000</code>\n` +
+  `or reply <code>{}whois</code> to someone's messages`;

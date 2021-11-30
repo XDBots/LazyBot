@@ -42,7 +42,7 @@ class PluginLoader {
       } catch (e) {
         const error =
           e instanceof Error
-            ? `[${e.name}] => ${e.message}`
+            ? `<b>[${e.name}] =></b> <code>${e.message}</code>`
             : `<code>${String(e)}</code>`;
         try {
           event.message.edit({
@@ -98,9 +98,9 @@ class PluginLoader {
         return console.log('[LazyGram] => Failed to Load Plugin - ' + filename);
       }
 
-      let help = xdplug.help as LGHelp;
+      let help = xdplug.help as string;
       if (!help) {
-        help = () => '<code>No Docs Provided by Plugin Developer</code>';
+        help = '<code>No Docs Provided by Plugin Developer</code>';
       }
 
       if (!Array.isArray(plugin)) {
@@ -112,7 +112,7 @@ class PluginLoader {
         this.addPlugin(pl, client);
       }
 
-      LazyHelp.addHelp(filename, help(env.CMD_PREFIX));
+      LazyHelp.addHelp(filename, help.replace(/{}/g, env.CMD_PREFIX));
       console.info('[LazyGram] => Loaded Plugin File - ' + filename);
     }
   }
