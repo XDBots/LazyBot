@@ -1,5 +1,5 @@
 import { prisma } from '../prisma';
-import { BlockUser } from '../utils';
+import { BlockUser } from '../helpers';
 import env from '../env';
 
 const warnuser = (warns: number): string => {

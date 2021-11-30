@@ -1,5 +1,5 @@
 import { LazyHelp } from '../userbot';
-import { extract } from '../utils';
+import { extract, LazyInfoHelper } from '../helpers';
 
 const HELP: LGPlugin = {
   handler: async (event) => {
@@ -7,6 +7,7 @@ const HELP: LGPlugin = {
     if (!args) {
       await event.message.edit({
         text:
+          LazyInfoHelper.getInfo() +
           `<b>Usage :</b> <code>.help plugin</code>\n\n` +
           `<b>Available Plugins</b>\n` +
           `<code>` +

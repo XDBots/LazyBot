@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { validate, getPatternFromCmd, extract } from '../utils';
+import { getPatternFromCmd } from '../helpers/regexHelpers';
 import { TelegramClient } from 'telegram';
 import { NewMessage, NewMessageEvent } from 'telegram/events';
 import { LazyHelp } from './helpLoader';
@@ -11,6 +11,27 @@ class PluginLoader {
 
   constructor() {
     this.commands = new Map<string, LGPlugin['handler']>();
+  }
+
+  private validate(plugin: LGPlugin) {
+    if (!('handler' in plugin)) {
+      console.warn(`[LazyGram] => Invalid Plugin - No Handler Found`);
+      return false;
+    }
+
+    if (typeof plugin.handler !== 'function') {
+      console.warn(`[LazyGram] => Invalid Plugin - Invalid Handler`);
+      return false;
+    }
+
+    if (plugin.outgoing && !('commands' in plugin)) {
+      console.warn(
+        `[LazyGram] => Invalid Plugin - Commands are required for this Plugin`
+      );
+      return false;
+    }
+
+    return true;
   }
 
   addPlugin(plugin: LGPlugin, client: TelegramClient) {
@@ -79,7 +100,7 @@ class PluginLoader {
       }
 
       for (let pl of plugin) {
-        if (!validate(pl)) return;
+        if (!this.validate(pl)) return;
         this.addPlugin(pl, client);
       }
 
