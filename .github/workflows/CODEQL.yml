@@ -19,6 +19,13 @@ jobs:
       fail-fast: false
       matrix:
         language: ['javascript']
+        
+    # Remove when repo is public
+    permissions: 
+      security-events: write
+      actions: read
+      contents: read
+    
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
