@@ -39,11 +39,19 @@ class PluginLoader {
       try {
         if (event.message.fwdFrom) return;
         await plugin.handler(event, client);
-      } catch (error) {
-        event.message.edit({
-          text: '<b>Error :</b>\n<code>' + String(error) + '</code>'
-        });
-        console.log('[LazyGram][Error] => ' + error);
+      } catch (e) {
+        const error =
+          e instanceof Error
+            ? `[${e.name}] => ${e.message}`
+            : `<code>${String(e)}</code>`;
+        try {
+          event.message.edit({
+            text: error
+          });
+          client.sendMessage(env.LOG_CHAT_ID, { message: error });
+        } catch (e) {
+          console.log('[LazyGram][Error] => ' + String(e));
+        }
       }
     };
 
