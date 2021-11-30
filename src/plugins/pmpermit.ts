@@ -1,5 +1,6 @@
 import { prisma } from '../prisma';
-import { BlockUser } from '../helpers';
+import { BlockUser, sleep } from '../helpers';
+import { Api } from 'telegram';
 import env from '../env';
 
 const warnuser = (warns: number): string => {
@@ -15,8 +16,11 @@ const PMPERMIT: LGPlugin = {
   handler: async (event, client) => {
     if (!event.isPrivate || !event.message.senderId) return;
 
+    const sender = event.message.sender as Api.User;
+    if (sender.self || sender.id === 777000) return;
+
     let user = await prisma.pmPermit.findUnique({
-      where: { id: event.message.senderId }
+      where: { id: sender.id }
     });
 
     if (user?.approved) {
@@ -26,21 +30,21 @@ const PMPERMIT: LGPlugin = {
 
     if (!user) {
       user = await prisma.pmPermit.create({
-        data: { id: event.message.senderId, warns: 1 }
+        data: { id: sender.id, warns: 1 }
       });
     } else {
       await prisma.pmPermit.update({
-        where: { id: event.message.senderId },
+        where: { id: sender.id },
         data: { warns: ++user.warns }
       });
     }
     await prisma.$disconnect();
 
     if (user.warns > env.PM_PERMIT_MAX_WARNS) {
-      await client.sendMessage(event.message.senderId, {
+      await client.sendMessage(sender.id, {
         message: '<code>You Have Been Blocked</code>'
       });
-      await client.invoke(BlockUser(event.message.senderId!));
+      await client.invoke(BlockUser(sender.id));
 
       return;
     } else {
@@ -97,8 +101,8 @@ const PMPERMIT_APPROVE: LGPlugin = {
     await prisma.$disconnect();
 
     await event.message.edit({ text: `<b>User has been Approved</b>` });
-
-    setTimeout(async () => await event.message.delete({ revoke: true }), 2500);
+    await sleep(2500);
+    await event.message.delete({ revoke: true });
   },
   commands: ['a', 'approve']
 };
