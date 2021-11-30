@@ -1,6 +1,8 @@
-export * from './fileHelper';
-export * from './gramHelpers';
-export * from './infoHelper';
-export * from './afkHelper';
-export * from './regexHelpers';
+export * from './files';
+export * from './gram';
+export * from './info';
+export * from './afk';
+export * from './regex';
+export * from './help';
+export * from './logger';
 export { sleep } from 'telegram/Helpers';

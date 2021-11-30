@@ -1,9 +1,8 @@
 import fs from 'fs';
 import path from 'path';
-import { getPatternFromCmd } from '../helpers/regexHelpers';
+import { getPatternFromCmd, LazyHelp } from '../helpers';
 import { TelegramClient } from 'telegram';
 import { NewMessage, NewMessageEvent } from 'telegram/events';
-import { LazyHelp } from './helpLoader';
 import env from '../env';
 
 class PluginLoader {
@@ -13,7 +12,7 @@ class PluginLoader {
     this.commands = new Map<string, LGPlugin['handler']>();
   }
 
-  private validate(plugin: LGPlugin) {
+  private validate(plugin: LGPlugin, filename: string) {
     if (!('handler' in plugin)) {
       console.warn(`[LazyGram] => Invalid Plugin - No Handler Found`);
       return false;
@@ -24,9 +23,9 @@ class PluginLoader {
       return false;
     }
 
-    if (plugin.outgoing && !('commands' in plugin)) {
+    if (plugin.outgoing && !(plugin.commands || plugin.pattern)) {
       console.warn(
-        `[LazyGram] => Invalid Plugin - Commands are required for this Plugin`
+        `[LazyGram] => Invalid Plugin - Commands/Pattern required for this Plugin`
       );
       return false;
     }
@@ -70,28 +69,18 @@ class PluginLoader {
   async load(client: TelegramClient) {
     console.info('[LazyGram] => Looking For Plugins...');
     const pluginFiles = fs
-      .readdirSync(
-        path.join(
-          process.cwd(),
-          __dirname.includes('/src/') ? 'src' : 'build',
-          'plugins'
-        )
-      )
-      .filter((file) => ['ts', 'js'].includes(file.slice(-2)));
+      .readdirSync(__dirname)
+      .filter(
+        (file) =>
+          file.slice(0, -3) !== 'index' && ['ts', 'js'].includes(file.slice(-2))
+      );
 
     console.info(`[LazyGram] => Found ${pluginFiles.length} Plugin Files...\n`);
 
     console.info('[LazyGram] => Loading Plugins...');
     for (const file of pluginFiles) {
       const filename = file.slice(0, -3);
-      let xdplug = await import(
-        path.join(
-          process.cwd(),
-          __dirname.includes('/src/') ? 'src' : 'build',
-          'plugins',
-          filename
-        )
-      );
+      let xdplug = await import(path.join(__dirname, filename));
 
       let plugin = xdplug.default as LGPlugin | LGPlugin[];
       if (!plugin) {
@@ -108,7 +97,7 @@ class PluginLoader {
       }
 
       for (let pl of plugin) {
-        if (!this.validate(pl)) return;
+        if (!this.validate(pl, filename)) return;
         this.addPlugin(pl, client);
       }
 

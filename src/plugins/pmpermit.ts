@@ -16,7 +16,7 @@ const PMPERMIT: LGPlugin = {
   handler: async (event, client) => {
     if (!event.isPrivate || !event.message.senderId) return;
 
-    const sender = event.message.sender as Api.User;
+    const sender = (await event.message.getSender()) as Api.User;
     if (sender.self || sender.id === 777000) return;
 
     let user = await prisma.pmPermit.findUnique({

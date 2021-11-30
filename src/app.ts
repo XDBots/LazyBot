@@ -1,5 +1,6 @@
-import { client, startUserbot, plugins } from './userbot';
+import { client, startUserbot } from './userbot';
 import { LazyFileHelper } from './helpers';
+import { plugins } from './plugins';
 
 (async () => {
   await LazyFileHelper.init();

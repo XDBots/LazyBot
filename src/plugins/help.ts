@@ -1,5 +1,4 @@
-import { LazyHelp } from '../userbot';
-import { extract, LazyInfoHelper } from '../helpers';
+import { extract, LazyInfoHelper, LazyHelp } from '../helpers';
 
 const HELP: LGPlugin = {
   handler: async (event) => {
