@@ -3,8 +3,8 @@ import env from '../env';
 export const extract = (text: string) => {
   const parts = new RegExp(`^\\${env.CMD_PREFIX}(\\w*)\\s?(.*)?`).exec(text);
   return {
-    command: Array.isArray(parts) ? parts[1] : null,
-    args: Array.isArray(parts) ? parts[2] : null
+    command: parts ? parts[1] : null,
+    args: parts && parts[2] ? parts[2].trim() : null
   };
 };
 
