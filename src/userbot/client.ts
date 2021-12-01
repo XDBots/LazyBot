@@ -16,5 +16,10 @@ export const client = new TelegramClient(
 
 export const startUserbot = async () => {
   client.setParseMode('html');
-  await client.start({ botAuthToken: '' });
+  try {
+    await client.start({ botAuthToken: '' });
+  } catch (e) {
+    console.log('[LazyBot] => Invalid Session String');
+    process.exit(1);
+  }
 };

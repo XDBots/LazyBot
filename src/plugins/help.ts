@@ -10,7 +10,7 @@ const HELP: LBPlugin = {
           `<b>Usage :</b> <code>.help plugin</code>\n\n` +
           `<b>Available Plugins</b>\n` +
           `<code>` +
-          LazyHelp.getHelpList().reduce(
+          LazyHelp.getPluginList().reduce(
             (prev, current) => prev + ', ' + current
           ) +
           `</code>`

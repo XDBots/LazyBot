@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { getPatternFromCmd, LazyHelp } from '../helpers';
+import { getPatternFromCmd, LazyHelp, LazyLogger } from '../helpers';
 import { TelegramClient } from 'telegram';
 import { NewMessage, NewMessageEvent } from 'telegram/events';
 import env from '../env';

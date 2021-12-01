@@ -15,7 +15,7 @@ class FileHelper {
     );
   }
 
-  saveFileFromBuffer(data: Buffer, filename: string) {
+  saveFile(data: string | NodeJS.ArrayBufferView, filename: string) {
     fs.writeFile(
       path.join(process.cwd(), 'downloads', filename),
       data,
@@ -26,7 +26,11 @@ class FileHelper {
     );
   }
 
-  deleteDownloaded(filename: string) {
+  getFilePath(file: string) {
+    return path.join(process.cwd(), 'downloads', file);
+  }
+
+  deleteFile(filename: string) {
     fs.rm(path.join(process.cwd(), 'downloads', filename), (error) => {
       error &&
         console.error('[LazyBot]' + `[${error.name}] => ` + error.message);
