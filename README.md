@@ -1,8 +1,8 @@
-![LOGO](assets/banner.jpg)
-
 # LazyBot
 
-> Yet another telegram userbot
+![LOGO](assets/banner.jpg)
+
+> Yet another telegram userbot. Build in Typescript and GramJS.
 
 ## WARNING
 

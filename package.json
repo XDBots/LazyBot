@@ -7,6 +7,7 @@
     "build": "tsc",
     "test": "tsc --noEmit",
     "start": "node build/app.js",
+    "postinstall": "prisma generate",
     "prestart": "prisma db push --accept-data-loss"
   },
   "keywords": [
