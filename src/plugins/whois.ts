@@ -53,7 +53,7 @@ const WHOIS: LBPlugin = {
     });
 
     const filename = 'pfp' + fulluser.user.id.toString() + '.jpg';
-    LazyFileHelper.saveFileFromBuffer(image, filename);
+    LazyFileHelper.saveFile(image, filename);
     event.message.delete({ revoke: true });
 
     if (Buffer.compare(image, Buffer.from(''))) {
@@ -63,7 +63,7 @@ const WHOIS: LBPlugin = {
         forceDocument: false,
         caption: getUserInfoText(fulluser)
       });
-      LazyFileHelper.deleteDownloaded(filename);
+      LazyFileHelper.deleteFile(filename);
     } else {
       // User doesn't have a profile pic
       await client.sendMessage(event.chatId!, {
