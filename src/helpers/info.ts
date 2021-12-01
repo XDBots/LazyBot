@@ -5,6 +5,10 @@ import os from 'os';
 class InfoHelper {
   constructor() {}
 
+  get version() {
+    return lazy.version as string;
+  }
+
   getInfo() {
     const uptime = toHHMMSS(Math.floor(process.uptime()));
     const version = lazy.version;
@@ -15,11 +19,11 @@ class InfoHelper {
     const ramUsage = ((usedRam / totalRam) * 100).toFixed(2);
 
     return (
-      `<b>LazyBot</b> (<code>${version}</code>)\n\n` +
-      `&#9055; Uptime : <code>${uptime}</code>\n` +
-      `&#9055; System : <code>${os.version()}-${os.arch}</code>\n` +
-      `&#9055; CPU Usage : <code>${cpuUsage}%</code>\n` +
-      `&#9055; RAM Usage : <code>${ramUsage}%</code>\n\n`
+      `<b><u>LazyBot</u></b> (<code>${version}</code>)\n\n` +
+      `&#9055; <b>Uptime :</b> <code>${uptime}</code>\n` +
+      `&#9055; <b>System :</b> <code>${os.version()}-${os.arch}</code>\n` +
+      `&#9055; <b>CPU Usage :</b> <code>${cpuUsage}%</code>\n` +
+      `&#9055; <b>RAM Usage :</b> <code>${ramUsage}%</code>\n\n`
     );
   }
 }

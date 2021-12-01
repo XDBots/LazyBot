@@ -1,4 +1,4 @@
-import { extract, LazyInfoHelper, LazyHelp } from '../helpers';
+import { extract, LazyHelp } from '../helpers';
 
 const HELP: LBPlugin = {
   handler: async (event) => {
@@ -6,7 +6,7 @@ const HELP: LBPlugin = {
     if (!args) {
       await event.message.edit({
         text:
-          LazyInfoHelper.getInfo() +
+          `<b><u>LazyBot Help Wizard</u></b>\n\n` +
           `<b>Usage :</b> <code>.help plugin</code>\n\n` +
           `<b>Available Plugins</b>\n` +
           `<code>` +
