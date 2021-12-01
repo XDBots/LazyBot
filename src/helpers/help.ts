@@ -9,7 +9,7 @@ class HelpLoader {
     this.help.set(file, doc);
   }
 
-  getHelpList() {
+  getPluginList() {
     return Array.from(this.help.keys());
   }
 
