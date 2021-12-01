@@ -1,4 +1,4 @@
-![LOGO]('assets/banner.jpg')
+![LOGO](assets/banner.jpg)
 
 # LazyBot
 
