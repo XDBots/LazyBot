@@ -62,6 +62,7 @@ const AFK_STOP: LBPlugin = {
   handler: async (e, client) => {
     // Don't run on afk command itself as pattern is wild card
     if (e.message.message.match(/afk/)) return;
+    await sleep(2500);
     if (!afk.isAfk) return;
     await LazyLogger.log(client, afk.WatchList);
     afk.stopAfk();
@@ -72,3 +73,9 @@ const AFK_STOP: LBPlugin = {
 };
 
 export default [AFK_HANDLE, AFK_CMD, AFK_STOP];
+export const help =
+  `AFK stands for Away From Keyboard. If you turn on AFK mode before going offline, when someone PM/Mentions you, will be notified that you are offline.\n\n` +
+  `<b>Examples : </b>\n\n` +
+  `• <code>{}afk</code> : Turns on AFK\n` +
+  `• <code>{}afk having party</code> : Turns on AFK with reason set to 'having party'\n\n` +
+  `AFK Mode will be turned off automatically if you send any message and received PM/Mentions will be logged in the Log Chat`;
