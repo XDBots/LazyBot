@@ -24,9 +24,10 @@ const SH: LBPlugin = {
       } else if (stdout === 'None' && stderr === 'None') {
         await event.message.edit({ text: '<code>[×]</code> No Output' });
       } else {
-        const message = `<code>[≈]</code> stdout:<code>\n${escape(
-          stdout
-        )}</code>\n\n<code>[×]</code> stderr:\n<code>${escape(stderr)}</code>`;
+        const message =
+          `<code>[&#955;]</code> cmd:<code> ${command}</code>\n\n` +
+          `<code>[≈]</code> stdout:<code>\n${escape(stdout)}</code>\n\n` +
+          `<code>[×]</code> stderr:\n<code>${escape(stderr)}</code>`;
 
         if (message.length > 4000) {
           const data = `stdout:\n${stdout}\n\nstderr:\n${stderr}`;
@@ -40,7 +41,7 @@ const SH: LBPlugin = {
           });
           LazyFileHelper.deleteFile(filename);
         } else {
-          await event.message.reply({ message });
+          await event.message.edit({ text: message });
         }
       }
     });
