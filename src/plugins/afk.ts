@@ -44,7 +44,7 @@ const AFK_HANDLE: LBPlugin = {
 const AFK_CMD: LBPlugin = {
   handler: async (event) => {
     const { args } = extract(event.message.message);
-    const reason = args ?? 'Not Mentioned';
+    const reason = args || 'Not Mentioned';
 
     await event.message.edit({
       text: `AFK Mode on\n\n&#9055; <b>Reason :</b> <code>${reason}</code>`
