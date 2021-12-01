@@ -1,3 +1,5 @@
+![LOGO]('assets/banner.jpg')
+
 # LazyBot
 
 > Yet another telegram userbot
