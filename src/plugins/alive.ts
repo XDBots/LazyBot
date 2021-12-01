@@ -3,7 +3,7 @@ import { LazyInfoHelper } from '../helpers';
 export default {
   handler: async (event) => {
     await event.message.edit({
-      text: LazyInfoHelper.getInfo()
+      text: await LazyInfoHelper.getInfo()
     });
   },
   commands: 'alive'
