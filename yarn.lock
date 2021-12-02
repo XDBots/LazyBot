@@ -2120,10 +2120,10 @@ systeminformation@^5.7:
   resolved "https://registry.yarnpkg.com/systeminformation/-/systeminformation-5.9.15.tgz#0f02fa6175cfe5c46b6b50618f851a046cf61cdb"
   integrity sha512-0tUYPXffFEsme8n/iTAMk09jpGgqtaGf46QOx7oFmiON9zDUQCahfSymQaCRr4tsq9BkKolaOzp8nqMVNrKIqQ==
 
-telegram@^1.10.8:
-  version "1.10.8"
-  resolved "https://registry.yarnpkg.com/telegram/-/telegram-1.10.8.tgz#1231647c969153b20501ec9b8837348160a37d28"
-  integrity sha512-fw5lpcpCBJ1BsIFOcOyD1BSTJpZLU3OO8ToUIslSGPBPOBoF5UvvUd3MmUYzvXxjOCZilZvDFG64+yRyqfHH/w==
+telegram@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/telegram/-/telegram-2.0.5.tgz#5ff972d4efbc659cdd582cd9f6480d84a97acf41"
+  integrity sha512-5tgVZEaqwmwH2Xd20nqVWDsHGksDy+t/3q+7ZbG6FxRyg7SYTdfIbybA2pg6mkZiO3cn0pAvaYCInNIn0TJRXQ==
   dependencies:
     "@cryptography/aes" "^0.1.1"
     async-mutex "^0.3.0"

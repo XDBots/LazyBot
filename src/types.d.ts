@@ -2,6 +2,7 @@ import {
   NewMessageInterface,
   NewMessageEvent
 } from 'telegram/events/NewMessage';
+import { Api } from 'telegram/tl/api';
 import { TelegramClient } from 'telegram';
 
 declare global {
@@ -10,4 +11,5 @@ declare global {
     commands?: string | string[];
     allowArgs?: boolean;
   }
+  type Long = Api.long;
 }

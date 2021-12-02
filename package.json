@@ -33,6 +33,6 @@
     "envalid": "^7.2.2",
     "html-escaper": "^3.0.3",
     "pm2": "^5.1.2",
-    "telegram": "^1.10.8"
+    "telegram": "^2.0.5"
   }
 }

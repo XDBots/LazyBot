@@ -1,16 +1,17 @@
 import { toHHMMSS } from '../utils/time';
 import { escape } from 'html-escaper';
+import { BigInteger } from 'big-integer';
 
 interface AFKPM {
   name: string;
-  userid: number;
+  userid: string | BigInteger;
 }
 
 interface AFKGROUP {
   title: string;
   link: string;
   by: {
-    id: number;
+    id: string | BigInteger;
     name: string;
   };
 }

@@ -17,10 +17,11 @@ const PMPERMIT: LBPlugin = {
     if (!event.isPrivate || !event.message.senderId) return;
 
     const sender = (await event.message.getSender()) as Api.User;
-    if (sender.self || sender.id === 777000 || sender.bot) return;
+    if (sender.self || sender.id === '777000' || sender.bot) return;
+    const senderId = sender.id.toString();
 
     let user = await prisma.pmPermit.findUnique({
-      where: { id: sender.id }
+      where: { id: senderId }
     });
 
     if (user?.approved) {
@@ -30,21 +31,21 @@ const PMPERMIT: LBPlugin = {
 
     if (!user) {
       user = await prisma.pmPermit.create({
-        data: { id: sender.id, warns: 1 }
+        data: { id: senderId, warns: 1 }
       });
     } else {
       await prisma.pmPermit.update({
-        where: { id: sender.id },
+        where: { id: senderId },
         data: { warns: ++user.warns }
       });
     }
     await prisma.$disconnect();
 
     if (user.warns > env.PM_PERMIT_MAX_WARNS) {
-      await client.sendMessage(sender.id, {
+      await client.sendMessage(senderId, {
         message: '<code>You Have Been Blocked</code>'
       });
-      await client.invoke(BlockUser(sender.id));
+      await client.invoke(BlockUser(senderId));
 
       return;
     } else {
@@ -79,7 +80,7 @@ const PMPERMIT_APPROVE: LBPlugin = {
     }
 
     const user = await prisma.pmPermit.findFirst({
-      where: { id: event.chatId }
+      where: { id: event.chatId.toString() }
     });
 
     if (user && user.approved) {
@@ -91,10 +92,10 @@ const PMPERMIT_APPROVE: LBPlugin = {
     }
 
     await prisma.pmPermit.upsert({
-      where: { id: event.chatId },
+      where: { id: event.chatId.toString() },
       update: { approved: true, warns: 0 },
       create: {
-        id: event.chatId,
+        id: event.chatId.toString(),
         approved: true
       }
     });
@@ -117,10 +118,10 @@ const PMPERMIT_BLOCK: LBPlugin = {
     }
 
     await prisma.pmPermit.upsert({
-      where: { id: event.chatId },
+      where: { id: event.chatId.toString() },
       update: { approved: false },
       create: {
-        id: event.chatId,
+        id: event.chatId.toString(),
         approved: false
       }
     });

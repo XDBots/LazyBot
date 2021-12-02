@@ -11,7 +11,7 @@ datasource db {
 }
 
 model PmPermit {
-  id       Int     @id @unique
+  id       String  @unique @db.VarChar(50)
   warns    Int     @default(0)
   approved Boolean @default(false)
 }
