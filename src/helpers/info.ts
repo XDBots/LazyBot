@@ -12,7 +12,7 @@ class InfoHelper {
     const sysinfo = await LazyExec(
       'neofetch --disable kernel uptime packages shell cpu memory --stdout'
     );
-    return sysinfo.split('\n')[2] || 'Linux';
+    return sysinfo.split('\n')[2].slice(4) || 'Linux';
   }
 
   async getInfo() {
