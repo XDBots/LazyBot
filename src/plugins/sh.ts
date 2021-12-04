@@ -19,7 +19,7 @@ const SH: LBPlugin = {
 
       if (err) {
         await event.message.edit({
-          text: escape('<code>[≈]</code> ' + err.name + ': ' + err.message)
+          text: '<code>[≈]</code> ' + escape(err.name + ': ' + err.message)
         });
       } else if (stdout === 'None' && stderr === 'None') {
         await event.message.edit({ text: '<code>[×]</code> No Output' });
