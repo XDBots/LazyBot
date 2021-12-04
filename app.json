@@ -1,0 +1,45 @@
+{
+  "name": "LazyBot",
+  "description": "A Telegram Userbot based on GramJS",
+  "keywords": [
+    "telegram",
+    "userbot",
+    "nodejs",
+    "gramjs"
+  ],
+  "repository": "https://github.com/XDBots/LazyBot",
+  "logo": "https://telegra.ph/file/9d9841ccc1d33239e5a2b.jpg",
+  "success_url": "https://telegram.dog/xdbots",
+  "env": {
+    "API_ID": {
+      "description": "Get API_ID from https://my.telegram.org/apps.",
+      "required": true
+    },
+    "API_HASH": {
+      "description": "Get API_HASH from https://my.telegram.org/apps.",
+      "required": true
+    },
+    "LOG_CHAT_ID": {
+      "description": "A Private Group/Channgel Id where LazyBot will log essential informations,errors.",
+      "required": true
+    },
+    "STRING_SESSION": {
+      "description": "GramJS/Telethon session string of the Telegram Account.",
+      "required": true
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "addons": [
+    {
+      "plan": "heroku-postgresql",
+      "options": {
+        "version": "13"
+      }
+    }
+  ],
+  "stack": "container"
+}

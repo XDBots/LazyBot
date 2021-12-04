@@ -5,5 +5,4 @@ COPY . /lazybot
 WORKDIR /lazybot
 RUN yarn install
 RUN yarn build
-RUN yarn run db
 CMD ["pm2-runtime", "start", "ecosystem.config.js"]
