@@ -36,7 +36,6 @@ class PluginLoader {
   addPlugin(plugin: LBPlugin, client: TelegramClient) {
     const handler = async (event: NewMessageEvent) => {
       try {
-        if (event.message.fwdFrom) return;
         return await plugin.handler(event, client);
       } catch (e) {
         const error =
@@ -59,6 +58,7 @@ class PluginLoader {
       new NewMessage({
         outgoing: plugin.outgoing ?? true,
         incoming: plugin.incoming ?? false,
+        forwards: plugin.forwards ?? false,
         pattern: plugin.commands
           ? getPatternFromCmd(plugin.commands, plugin.allowArgs)
           : plugin.pattern

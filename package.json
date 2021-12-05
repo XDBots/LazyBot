@@ -6,9 +6,9 @@
   "scripts": {
     "build": "tsc",
     "test": "tsc --noEmit",
-    "start": "node build/app.js",
+    "start": "node build/app",
     "postinstall": "prisma generate",
-    "prestart": "prisma db push --accept-data-loss"
+    "prestart": "prisma db push --accept-data-loss --skip-generate"
   },
   "keywords": [
     "Telegram",
@@ -32,7 +32,6 @@
     "dotenv": "^10.0.0",
     "envalid": "^7.2.2",
     "html-escaper": "^3.0.3",
-    "pm2": "^5.1.2",
     "telegram": "^2.0.5"
   }
 }
