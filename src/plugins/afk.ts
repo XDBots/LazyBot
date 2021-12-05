@@ -12,7 +12,7 @@ const AFK_HANDLE: LBPlugin = {
     }
 
     if (event.isGroup) {
-      if (!event.message.mentioned && !event.message.replyTo) return;
+      if (!event.message.mentioned || !event.message.replyTo) return;
       const group = (await client.getEntity(event.chatId!)) as Api.Channel;
       if (group.username) {
         afk.addWatch({
