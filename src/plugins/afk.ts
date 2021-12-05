@@ -4,16 +4,18 @@ import { afk, sleep, extract, LazyLogger } from '../helpers';
 const AFK_HANDLE: LBPlugin = {
   handler: async (event, client) => {
     if (!afk.isAfk) return;
-    const user = (await event.message.getSender()) as Api.User;
+    if (event.isChannel) return;
 
     if (event.isPrivate && event.message.sender) {
+      const user = (await event.message.getSender()) as Api.User;
       if (user.bot || user.verified) return;
       afk.addWatch({ name: user.firstName ?? '', userid: user.id });
     }
 
     if (event.isGroup) {
-      if (!event.message.mentioned || !event.message.replyTo) return;
+      if (!event.message.mentioned) return;
       const group = (await client.getEntity(event.chatId!)) as Api.Channel;
+      const user = (await event.message.getSender()) as Api.User;
       if (group.username) {
         afk.addWatch({
           title: group.title,
