@@ -17,7 +17,7 @@ const PMPERMIT: LBPlugin = {
     if (!event.isPrivate || !event.message.senderId) return;
 
     const sender = (await event.message.getSender()) as Api.User;
-    if (sender.self || sender.id === '777000' || sender.bot) return;
+    if (sender.self || sender.verified || sender.bot) return;
     const senderId = sender.id.toString();
 
     let user = await prisma.pmPermit.findUnique({

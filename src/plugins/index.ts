@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { getPatternFromCmd, LazyHelp, LazyLogger } from '../helpers';
+import { getPatternFromCmd, LazyHelp } from '../helpers';
 import { TelegramClient } from 'telegram';
 import { NewMessage, NewMessageEvent } from 'telegram/events';
 import env from '../env';
@@ -37,7 +37,7 @@ class PluginLoader {
     const handler = async (event: NewMessageEvent) => {
       try {
         if (event.message.fwdFrom) return;
-        await plugin.handler(event, client);
+        return await plugin.handler(event, client);
       } catch (e) {
         const error =
           e instanceof Error
