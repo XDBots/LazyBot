@@ -4,7 +4,9 @@ import { afk, sleep, extract, LazyLogger } from '../helpers';
 const AFK_HANDLE: LBPlugin = {
   handler: async (event, client) => {
     if (!afk.isAfk) return;
-    if (event.isChannel) return;
+
+    // isChannel returning true in groups, IDK if it is preferred behaviour.
+    if (event.isChannel && !event.isGroup) return;
 
     if (event.isPrivate && event.message.sender) {
       const user = (await event.message.getSender()) as Api.User;
@@ -66,6 +68,11 @@ const AFK_STOP: LBPlugin = {
     if (e.message.message.match(/afk/)) return;
     await sleep(2500);
     if (!afk.isAfk) return;
+    const off = await client.sendMessage(e.message.chatId!, {
+      message: 'AFK has been turned off...'
+    });
+    await sleep(500);
+    client.deleteMessages(off.chatId, [off.id], { revoke: true });
     await LazyLogger.log(client, afk.WatchList);
     afk.stopAfk();
   },
