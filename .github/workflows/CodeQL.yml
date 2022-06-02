@@ -7,8 +7,8 @@ on:
   pull_request:
     branches: [main]
     paths-ignore: ["*.md"]
-  schedule:
-    - cron: '* */6 * * *'
+#   schedule:
+#     - cron: '* */6 * * *'
   workflow_dispatch:
 
 jobs:
